@@ -17,8 +17,22 @@ class ArticulFile
   def show
     articuls.each { |a| puts a }
   end
-end
 
-f = ArticulFile.new('articul.txt')
-f.read
-f.show
+  def save(keys, properties)
+    f = File.open('result.csv','w+')
+    line = ''
+    keys.each { |k| line = line + k + ';' }
+    f.puts(line)
+    properties.each do |p|
+      unless p.nil?
+        line = ''
+        keys.each do |k|
+          line = line + p[k].to_s
+          line << ';'
+        end
+        f.puts(line)
+      end
+    end
+    f.close
+  end
+end
